@@ -11,20 +11,17 @@ const app = express();
 const port = 3001;
 const SECRET_KEY = 'your_secret_key';
 
+// CORS ayarlarını yap
 const corsOptions = {
-  origin: '*',
+  origin: ['http://localhost:3000', 'http://192.168.1.103:3000'], // Bu adresi ağınızdaki IP adresinizle değiştirin
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 };
-app.use('/Fiyatlar', express.static(path.join(__dirname, 'Fiyatlar')));
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
-app.use(cors({
-  origin: 'http://localhost:3000'
-}));
-
+app.use('/Fiyatlar', express.static(path.join(__dirname, 'Fiyatlar')));
 
 const loadUsers = () => {
   const data = fs.readFileSync('users.json', 'utf8');
