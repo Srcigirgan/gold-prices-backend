@@ -178,6 +178,19 @@ app.get('/api/images', (req, res) => {
     res.status(200).json(images);
   });
 });
+// Fiyat dosyasını silmek için yeni bir endpoint ekleyin
+app.delete('/api/prices/:date', (req, res) => {
+  const { date } = req.params;
+  const filePath = path.join('Fiyatlar', `${date}.json`);
+
+  fs.unlink(filePath, (err) => {
+    if (err) {
+      console.error('Error deleting file:', err);
+      return res.status(500).json({ message: 'Error deleting file' });
+    }
+    res.status(200).json({ message: 'File deleted successfully' });
+  });
+});
 
 app.delete('/api/images/:filename', (req, res) => {
   const filename = req.params.filename;
