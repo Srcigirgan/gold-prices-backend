@@ -1,7 +1,7 @@
+// createUser.js
 const fs = require('fs');
 const bcrypt = require('bcrypt');
 
-const SECRET_KEY = 'your_secret_key'; // Aynı anahtarı kullanın
 const usersFile = 'users.json';
 
 const addUser = (username, password) => {
@@ -33,5 +33,4 @@ const addUser = (username, password) => {
   });
 };
 
-// Kullanıcıyı oluştur
-addUser('Deneme', '12345a'); // Burada 'Admin' ve '123Aa' yerine kendi kullanıcı adınızı ve şifrenizi yazabilirsiniz
+module.exports = addUser;
