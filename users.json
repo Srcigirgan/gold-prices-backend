@@ -1,10 +1,10 @@
 [
   {
-    "username": "Admin",
-    "password": "$2b$10$mkkCICeOu1w1pLOSbntF8.HGI8ey9HEx0OF2H6GqsJbnPAXBO25IO"
-  },
-  {
     "username": "Salih",
     "password": "$2b$10$bpTwHj9DW7cttuWGGynuSOXqU..5fAbMp0ck6eKshi9lNmGELydfy"
+  },
+  {
+    "username": "MyGold",
+    "password": "$2b$10$gU4Z0OeLz1sfW1MjLNveKulLrTzdj1O1L2sfU33v330XuBtMF.v6C"
   }
 ]

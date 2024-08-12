@@ -42,6 +42,9 @@ const loadPrices = (date) => {
     return {};
   }
 };
+const formatNumber = (number) => {
+  return new Intl.NumberFormat('tr-TR').format(number);
+};
 
 const savePrices = (date, prices) => {
   const filePath = path.join('Fiyatlar', `${date}.json`);
@@ -53,26 +56,40 @@ app.post('/api/prices', (req, res) => {
 
   try {
     const currentPrices = loadPrices(date);
-    const updatedPrices = { ...currentPrices, ...newPrices };
-    savePrices(date, updatedPrices);
-    res.status(200).json({ message: 'Prices updated successfully', prices: updatedPrices });
+    // Sayıları formatla
+    const updatedPrices = Object.keys(newPrices).reduce((acc, key) => {
+      acc[key] = formatNumber(newPrices[key]);
+      return acc;
+    }, {});
+
+    const finalPrices = { ...currentPrices, ...updatedPrices };
+    savePrices(date, finalPrices);
+    res.status(200).json({ message: 'Prices updated successfully', prices: finalPrices });
   } catch (error) {
     console.error('Error updating prices:', error);
     res.status(500).json({ message: 'Error updating prices' });
   }
 });
 
+
 app.get('/api/prices', (req, res) => {
   const { date } = req.query;
 
   try {
     const data = loadPrices(date);
-    res.status(200).json(data);
+    // Sayıları formatla
+    const formattedData = Object.keys(data).reduce((acc, key) => {
+      acc[key] = formatNumber(data[key]);
+      return acc;
+    }, {});
+
+    res.status(200).json(formattedData);
   } catch (error) {
     console.error('Error loading prices:', error);
     res.status(500).json({ message: 'Error loading prices' });
   }
 });
+
 
 app.get('/api/users', (req, res) => {
   try {
