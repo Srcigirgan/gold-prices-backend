@@ -56,20 +56,18 @@ app.post('/api/prices', (req, res) => {
 
   try {
     const currentPrices = loadPrices(date);
-    // Sayıları formatla
-    const updatedPrices = Object.keys(newPrices).reduce((acc, key) => {
-      acc[key] = formatNumber(newPrices[key]);
-      return acc;
-    }, {});
+    
+    // Sayıları virgül eklemeden olduğu gibi al
+    const updatedPrices = { ...currentPrices, ...newPrices };
 
-    const finalPrices = { ...currentPrices, ...updatedPrices };
-    savePrices(date, finalPrices);
-    res.status(200).json({ message: 'Prices updated successfully', prices: finalPrices });
+    savePrices(date, updatedPrices);
+    res.status(200).json({ message: 'Prices updated successfully', prices: updatedPrices });
   } catch (error) {
     console.error('Error updating prices:', error);
     res.status(500).json({ message: 'Error updating prices' });
   }
 });
+
 
 
 app.get('/api/prices', (req, res) => {
